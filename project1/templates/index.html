@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+Welcome to the Book Application
+{% endblock %}
+
+{%  block body %}
+    <p>{{ message }}</p>
+    <a href={{ url_for('register') }} class={{ login_form_class }}>New User?  Register here!</a>
+    <p class={{ login_form_class }}>Already have an account?  Log in here:</p>
+
+    <form action="{{ url_for('login') }}" class={{ login_form_class }} method="post">
+        <input type="text" name="username" placeholder="Username">
+        <input type="text" name="password" placeholder="Password">
+        <button>Submit</button>
+    </form>
+
+    <a href={{ url_for('search') }}>Search for a book</a>
+
+    <a href={{ url_for('logout') }}>Logout</a>
+    <hr>
+    <ol>
+    {% for book in books %}
+        <li>{{ book['title'] }}</li>
+    {% endfor %}
+    </ol>
+{% endblock %}
+

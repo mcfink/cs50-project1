@@ -1,0 +1,38 @@
+{%  extends "layout.html" %}
+
+{%  block heading %}
+Book Page
+{% endblock %}
+
+{% block body %}
+<h3> {{ book['title'] }} </h3>
+<p>{{ book['author'] }} - {{ book['isbn'] }}</p>
+
+<h3>Write a review for {{ book['title'] }}</h3>
+    <form action="{{ url_for('book', isbn=book['isbn'])  }}" method="post">
+    <textarea rows="10" cols="40" name="review-text"></textarea>
+    <button>Submit</button>
+    </form>
+
+    <div>
+    <h3>Reviews for {{ book['title'] }}</h3>
+
+    <ul>
+        {% for review in five_reviews %}
+        <li><h4>{{ review['username'] }} says:</h4>{{ review['review_text'] }}
+        </li>
+        {% endfor %}
+    </ul>
+    </div>
+
+    <div>
+    <h3>Goodreads Stats</h3>
+        <p><strong>Average Rating: </strong>{{ good_reads_average_rating }} Stars
+        <p><strong>Total Ratings: </strong>{{ good_reads_total_ratings }} Ratings</p>
+
+    <h3>Reviews from GoodReads</h3>
+    {{ good_reads_iframe|safe }}
+    </div>
+
+{% endblock %}
+
